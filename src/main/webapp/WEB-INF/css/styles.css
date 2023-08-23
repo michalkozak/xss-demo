@@ -1,0 +1,152 @@
+* {
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #616161;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+div.container {
+  display: flex;
+  flex-direction: row;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+p {
+  font-size: 18px;
+}
+
+a {
+  cursor: pointer;
+  color: #0055ff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+a.return {
+  color: #1976d2;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+.button, button {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 2px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+}
+
+.button:hover, button:hover {
+  opacity: 0.8;
+  font-weight: normal;
+}
+
+.button:disabled, button:disabled {
+  opacity: 0.5;
+  cursor: auto;
+}
+
+.add-new-button {
+  background-color: white;
+  color: #1976d2;
+}
+
+
+div.app-top-bar {
+  width: 100%;
+  height: 68px;
+  background-color: #1976d2;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-title {
+  color: white;
+  margin: 0;
+}
+
+div.app-demo-object-list {
+  padding: 0 16px;
+}
+
+div.app-demo-object-details {
+  padding: 0 16px;
+}
+
+div.app-demo-object-new {
+  width: 100%;
+  padding: 0 16px;
+}
+
+div.app-demo-object-upload {
+  width: 100%;
+  padding: 0 16px;
+}
+
+.upload-button {
+  background-color: white;
+  color: #1976d2;
+  text-align: right;
+}
+
+form {
+  width: 100%;
+}
+
+input {
+  font-size: 18px;
+  border-radius: 2px;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #BDBDBD;
+  width: 100%;
+}
+
+input#name {
+  width: 60%;
+}
+
+input[type="file"] {
+  color: white;
+  background-color: #1976d2;
+  font-size: 18px;
+  border-radius: 2px;
+  padding: 6px;
+  margin-bottom: 16px;
+  border: 1px solid #BDBDBD;
+  width: 100%;
+}

@@ -1,0 +1,47 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  datasource:
+    driver-class-name: "org.postgresql.Driver"
+    url: "jdbc:postgresql://localhost:5432/demo_db"
+    username: demo
+    password: demo
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include=*:
+
+eureka:
+  client:
+    enabled: false
+
+sso:
+  jwt:
+    internal:
+      type: signed
+      signature:
+        algorithm: HS256
+        key:
+          type: VALUE
+          value: JWTSecretKeyDontUseInProduction!
+
+buildingblocks:
+  security:
+    xss: true
+
+backbase:
+  security:
+    public:
+      paths: "**"

@@ -1,0 +1,196 @@
+databaseChangeLog:
+- changeSet:
+    id: 0002-DEMO
+    author: michalko
+    changes:
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: safe payload
+        - column:
+            name: description
+            value: safe description
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: javascript simple XSS payload
+        - column:
+            name: description
+            value: <script>window.alert("XSS 1")</script>
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: javascript encoded XSS payload by unicode escape sequence
+            # \\u[a-fA-F0-9]{4}
+        - column:
+            name: description
+            # \u0069 i
+            # \u0065 e
+            value: <script>w\u0069ndow.al\u0065rt("XSS 2")</script>
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: javascript encoded XSS payload by hexadecimal escape sequences
+            # \\u[a-fA-F0-9]{4}
+            # \\x[a-fA-F0-9]{2}
+        - column:
+            name: description
+            # \x65 e
+            value: <script>window['al\x65rt']("XSS 3")</script>
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: javascript encoded XSS payload by by octal escape sequence
+            # \\(?:[1-7][0-7]{0,2}|[0-7]{2,3})
+            # deprecated in ECMAScript5 but still JSON.parse able
+        - column:
+            name: description
+            # \145 e
+            value: <script>window['al\145rt']("XSS 4")</script>
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: image with "onerror" javascript function
+        - column:
+            name: description
+            value: <img src="x:gif" onerror="window['alert']('XSS 5')">
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: image with "onerror" javascript function trying to escape one character
+        - column:
+            name: description
+            value: <img src="x:gif" onerror="window['al\ert']('XSS 6')">
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: image with "onerror" javascript function encoded by unicode code point escape sequence
+            # ECMAScript6
+            # \\u\{([0-9a-fA-F]{1,})\}
+        - column:
+            name: description
+            # \u{0000000069} i
+            # \u{0000065} e
+            value: <img src="x:gif" onerror="w\u{0000000069}ndow['al\u{0000065}rt']('XSS 7')">
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: image with "onerror" javascript function mixed encoded (HTML entity and javascript)
+            # &#[0-9]{4};
+            # &#x[a-fA-F0-9]{1,};
+        - column:
+            name: description
+            # &#92; \
+            # \u0065 e
+            value: <img src="x:gif" onerror="window['al&#92;u0065rt']('XSS 8')">
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: anchor with "onmouseover" javascript function
+        - column:
+            name: description
+            value: <a href="x:gif" onmouseover="window.location.href='https://www.google.com/'">LINK 1</a>
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: anchor with "onmouseover" javascript function encoded by url-encoding
+            # %[a-fA-F0-9]{2}
+        - column:
+            # %6F o
+            name: description
+            value: <a href="x:gif" onmouseover="window.location.href='https://www.g%6Fogle.com/'">LINK 2</a>
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: anchor with "onmouseover" javascript function mixed encoded (javascript and url-encoding)
+        - column:
+            # \u0025 %
+            # %6F o
+            name: description
+            value: <a href="x:gif" onmouseover="window.location.href='https://www.g\u00256Fogle.com/'">LINK 3</a>
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: external script - stealthily changes the values on the page
+        - column:
+            name: description
+            value: <script src="http://localhost:8080/js/replace-bank-account.js"></script>
+    - insert:
+        tableName: demo
+        columns:
+        - column:
+            name: id
+            valueSequenceNext: demo_id_seq
+        - column:
+            name: name
+            value: external script - HTML entity encoded
+        - column:
+            # &#58; :
+            # &#47; /
+            name: description
+            value: <script src=http&#58;&#47;&#47;localhost&#58;8080&#47;js&#47;replace-bank-account.js></script>
